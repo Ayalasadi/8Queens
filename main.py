@@ -139,7 +139,7 @@ def genetic_algorithm(pop_size=100, generations=1000, mutation_rate=0.05):
 
 
 # ------------------------- TESTING BLOCK -------------------------
-
+#this block's commented out for experiment runs
 if __name__ == "__main__":
     population_size = 10
     mutation_rate = 0.1
