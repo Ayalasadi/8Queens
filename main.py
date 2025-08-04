@@ -35,9 +35,44 @@ def calculate_fitness(board):
                 attacking_pairs += 1
     return 28 - attacking_pairs
 
+def generate_population(size):
+    """Generates a list of random boards."""
+    return [generate_random_board() for _ in range(size)]
+
+def evaluate_population(population):
+    """
+    Returns a list of (board, fitness) tuples.
+    """
+    return [(board, calculate_fitness(board)) for board in population]
+
+def normalize_fitness(fitness_list):
+    """
+    Given a list of fitness values, returns a list of normalized fitness scores.
+    """
+    total = sum(fitness_list)
+    if total == 0:
+        return [0 for _ in fitness_list]
+    return [f / total for f in fitness_list]
 
 
 if __name__ == "__main__":
+    #create population
+    population = generate_population(10)
+
+    #evaluate fitness
+    evaluated = evaluate_population(population)
+
+    #extract fitness scores
+    fitness_scores = [fit for _, fit in evaluated]
+
+    #normalize them
+    normalized_scores = normalize_fitness(fitness_scores)
+
+    #print each board with fitness and normalized probability
+    for i, (board, fit) in enumerate(evaluated):
+        print(f"Board {i+1}: {board}")
+        print_board(board)
+        print(f"Fitness: {fit}, Normalized: {normalized_scores[i]:.4f}\n")
     board = generate_random_board()
     print("Random board:", board)
     print_board(board)
